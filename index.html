@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+
     <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0, viewport-fit=cover"
@@ -10,11 +11,39 @@
     <meta name="theme-color" content="#17120f">
 
     <meta
-        name="description"
-        content="Bitcoin Blake network hashrate checker."
+        name="apple-mobile-web-app-capable"
+        content="yes"
     >
 
-    <title>Bitcoin Blake</title>
+    <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="black"
+    >
+
+    <meta
+        name="apple-mobile-web-app-title"
+        content="Blake Hash"
+    >
+
+    <meta
+        name="description"
+        content="Live Blake network hashrate checker."
+    >
+
+    <link rel="manifest" href="/manifest.json">
+
+    <link
+        rel="apple-touch-icon"
+        href="/icon.png"
+    >
+
+    <link
+        rel="icon"
+        type="image/png"
+        href="/icon.png"
+    >
+
+    <title>Blake Hash</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -25,7 +54,7 @@
 
         <div class="logo">₿</div>
 
-        <div class="brand">Bitcoin Blake</div>
+        <div class="brand">Blake Hash</div>
 
         <div class="pair">NETWORK HASHRATE</div>
 
@@ -45,55 +74,94 @@
                 id="installButton"
                 type="button"
             >
-                How to use as an app
+                Add to Home Screen
             </button>
 
-            <div class="instructions" id="instructions">
+            <div
+                class="instructions"
+                id="instructions"
+            >
 
-                <h2>BlakeHash App</h2>
+                <h2>Blake Hash</h2>
 
                 <p>
-                    Blake Hash App is a Progressive Web App (PWA).
+                    Blake Hash is a Progressive Web App (PWA).
                     You can add this website to your phone or computer
                     and use it like an app for quick access to the live
-                    Bitcoin Blake network hashrate.
+                    Blake network hashrate.
                 </p>
 
                 <h3>iPhone / iPad</h3>
 
                 <ol>
-                    <li>Open this page in <strong>Safari</strong>.</li>
-                    <li>Tap the <strong>Share</strong> button.</li>
-                    <li>Tap <strong>Add to Home Screen</strong>.</li>
-                    <li>Make sure <strong>Open as Web App</strong> is enabled.</li>
-                    <li>Tap <strong>Add</strong>.</li>
+                    <li>
+                        Open this page in <strong>Safari</strong>.
+                    </li>
+
+                    <li>
+                        Tap the <strong>Share</strong> button.
+                    </li>
+
+                    <li>
+                        Tap <strong>Add to Home Screen</strong>.
+                    </li>
+
+                    <li>
+                        Make sure
+                        <strong>Open as Web App</strong>
+                        is enabled.
+                    </li>
+
+                    <li>
+                        Tap <strong>Add</strong>.
+                    </li>
                 </ol>
 
                 <h3>Android</h3>
 
                 <ol>
-                    <li>Open this page in <strong>Chrome</strong>.</li>
-                    <li>Tap the browser menu <strong>⋮</strong>.</li>
                     <li>
-                        Select <strong>Install app</strong> or
+                        Open this page in <strong>Chrome</strong>.
+                    </li>
+
+                    <li>
+                        Tap the browser menu <strong>⋮</strong>.
+                    </li>
+
+                    <li>
+                        Select
+                        <strong>Install app</strong>
+                        or
                         <strong>Add to Home screen</strong>.
                     </li>
-                    <li>Confirm.</li>
+
+                    <li>
+                        Confirm.
+                    </li>
                 </ol>
 
                 <h3>Windows / Mac / Linux</h3>
 
                 <ol>
-                    <li>Open this page in a supported browser.</li>
                     <li>
-                        Use the browser's <strong>Install</strong> option
-                        or <strong>Add to desktop</strong> option.
+                        Open this page in a supported browser.
                     </li>
-                    <li>Confirm.</li>
+
+                    <li>
+                        Use the browser's
+                        <strong>Install</strong>
+                        option or
+                        <strong>Add to desktop</strong>
+                        option.
+                    </li>
+
+                    <li>
+                        Confirm.
+                    </li>
                 </ol>
 
                 <p>
-                    Once added, Blake Hash App will appear on your device
+                    Once added, Blake Hash will appear on your device
                     like an app, giving you quick access to the live
                     network hashrate.
                 </p>
@@ -132,19 +200,51 @@
         };
     </script>
 
-    <script defer src="/_vercel/insights/script.js"></script>
+    <script
+        defer
+        src="/_vercel/insights/script.js"
+    ></script>
 
     <script src="script.js"></script>
 
     <script>
-        const installButton = document.getElementById("installButton");
-        const instructions = document.getElementById("instructions");
+        const installButton =
+            document.getElementById("installButton");
+
+        const instructions =
+            document.getElementById("instructions");
 
         installButton.addEventListener("click", () => {
-            const isOpen = instructions.style.display === "block";
 
-            instructions.style.display = isOpen ? "none" : "block";
+            const isOpen =
+                instructions.style.display === "block";
+
+            instructions.style.display =
+                isOpen ? "none" : "block";
+
         });
+
+        if ("serviceWorker" in navigator) {
+
+            window.addEventListener("load", () => {
+
+                navigator.serviceWorker
+                    .register("/service-worker.js")
+                    .then(() => {
+                        console.log(
+                            "Blake Hash service worker registered"
+                        );
+                    })
+                    .catch(error => {
+                        console.error(
+                            "Service worker registration failed:",
+                            error
+                        );
+                    });
+
+            });
+
+        }
     </script>
 
 </body>
