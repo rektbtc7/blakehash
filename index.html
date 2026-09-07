@@ -14,39 +14,31 @@
         content="Bitcoin Blake network hashrate checker."
     >
 
-    <title>Bitcoin Blake | Network Hashrate</title>
+    <title>Bitcoin Blake</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <main class="app">
+    <main class="container">
 
-        <header class="header">
+        <div class="logo">₿</div>
 
-            <div class="logo">₿</div>
+        <div class="brand">Bitcoin Blake</div>
 
-            <h1>Bitcoin Blake</h1>
+        <div class="pair">NETWORK HASHRATE</div>
 
-        </header>
+        <div class="hashrate-value">
+            <span id="hashrate-value">Loading...</span>
+            <span id="hashrate-unit"></span>
+        </div>
 
-        <section class="hashrate">
+        <div class="source">
+            LIVE NETWORK HASHRATE · MEMPOOL GUIDE
+        </div>
 
-            <p class="label">Network Hashrate</p>
-
-            <div class="value">
-                <span id="hashrate-value">--</span>
-                <span id="hashrate-unit">PH/s</span>
-            </div>
-
-            <p class="updated">
-                <span id="status">Loading...</span>
-            </p>
-
-        </section>
-
-        <section class="install-section">
+        <div class="install-section">
 
             <button
                 class="install-button"
@@ -61,9 +53,10 @@
                 <h2>Bitcoin Blake</h2>
 
                 <p>
-                    Bitcoin Blake can be added to your phone or computer
-                    and used like an app for quick access to the live
-                    network hashrate.
+                    Bitcoin Blake is a Progressive Web App (PWA).
+                    You can add this website to your phone or computer
+                    and use it like an app for quick access to the live
+                    Bitcoin Blake network hashrate.
                 </p>
 
                 <h3>iPhone / iPad</h3>
@@ -107,9 +100,9 @@
 
             </div>
 
-        </section>
+        </div>
 
-        <section class="donation-section">
+        <div class="donation-section">
 
             <div class="donation-text">
                 Support this app.
@@ -129,7 +122,7 @@
                 alt="BTCB2 donation QR code"
             >
 
-        </section>
+        </div>
 
     </main>
 
