@@ -1,295 +1,70 @@
-* {
-    box-sizing: border-box;
-}
-
-html {
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    min-height: 100%;
-    background: #17120f;
-}
-
-body {
-    margin: 0;
-    padding: 0;
-
-    width: 100%;
-    min-height: 100vh;
-    min-height: 100dvh;
-
-    background: #17120f;
-    color: #c47a45;
-
-    font-family: Arial, Helvetica, sans-serif;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    overflow-x: hidden;
-
-    padding-left: env(safe-area-inset-left);
-    padding-right: env(safe-area-inset-right);
-    padding-top: env(safe-area-inset-top);
-    padding-bottom: env(safe-area-inset-bottom);
-}
-
-.container {
-    width: 100%;
-    max-width: 520px;
-
-    padding: 32px 20px;
-
-    text-align: center;
-}
-
-.logo {
-    width: 58px;
-    height: 58px;
-
-    margin: 0 auto 18px;
-
-    background: #c47a45;
-    color: #17120f;
-
-    border-radius: 50%;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 34px;
-    font-weight: bold;
-}
-
-.brand {
-    color: #c47a45;
-
-    font-size: 24px;
-    font-weight: 700;
-
-    letter-spacing: 1px;
-
-    margin-bottom: 8px;
-}
-
-.pair {
-    color: #c47a45;
-
-    font-size: 15px;
-
-    letter-spacing: 2px;
-
-    margin-bottom: 14px;
-}
-
-.hashrate-value {
-    width: 100%;
-
-    color: #c47a45;
-
-    font-size: clamp(38px, 15vw, 64px);
-
-    font-weight: 600;
-
-    letter-spacing: -2px;
-
-    overflow-wrap: anywhere;
-    word-break: break-word;
-}
-
-#hashrate-unit {
-    color: #c47a45;
-
-    font-size: 0.55em;
-
-    letter-spacing: -1px;
-
-    white-space: nowrap;
-}
-
-.source {
-    margin-top: 14px;
-
-    color: #c47a45;
-
-    font-size: 11px;
-
-    letter-spacing: 1px;
-}
-
-.install-section {
-    width: 100%;
-
-    margin-top: 40px;
-    padding-top: 24px;
-
-    border-top: 1px solid #332820;
-}
-
-.install-button {
-    max-width: 100%;
-
-    padding: 10px 16px;
-
-    background: transparent;
-    color: #c47a45;
-
-    border: 1px solid #c47a45;
-    border-radius: 6px;
-
-    font-size: 14px;
-    font-weight: 600;
-
-    cursor: pointer;
-}
-
-.install-button:hover {
-    background: #c47a45;
-    color: #17120f;
-}
-
-.instructions {
-    display: none;
-
-    width: 100%;
-    max-width: 420px;
-
-    margin: 22px auto 0;
-    padding: 20px;
-
-    background: #211914;
-
-    border: 1px solid #332820;
-    border-radius: 8px;
-
-    color: #c47a45;
-
-    font-size: 14px;
-    line-height: 1.6;
-
-    text-align: left;
-
-    overflow-wrap: break-word;
-}
-
-.instructions h2 {
-    margin: 0 0 18px;
-
-    color: #c47a45;
-
-    font-size: 18px;
-}
-
-.instructions h3 {
-    margin: 20px 0 6px;
-
-    color: #c47a45;
-
-    font-size: 14px;
-}
-
-.instructions h3:first-of-type {
-    margin-top: 20px;
-}
-
-.instructions p {
-    margin: 0 0 16px;
-
-    color: #c47a45;
-}
-
-.instructions ol {
-    margin: 6px 0 0;
-
-    padding-left: 20px;
-}
-
-.instructions li {
-    margin-bottom: 5px;
-
-    color: #c47a45;
-}
-
-.instructions strong {
-    color: #c47a45;
-}
-
-.donation-section {
-    width: 100%;
-
-    margin-top: 40px;
-    padding-top: 24px;
-
-    border-top: 1px solid #332820;
-}
-
-.donation-text {
-    color: #c47a45;
-
-    font-size: 12px;
-    line-height: 1.5;
-
-    margin-bottom: 10px;
-}
-
-.donation-address {
-    display: block;
-
-    width: 100%;
-
-    color: #c47a45;
-
-    font-size: 11px;
-    line-height: 1.5;
-
-    word-break: break-all;
-}
-
-.qr-code {
-    display: block;
-
-    width: 180px;
-    height: 180px;
-
-    margin: 16px auto 0;
-}
-
-@media (max-width: 400px) {
-
-    .container {
-        padding-left: 16px;
-        padding-right: 16px;
+const API_URL = "https://mempool.guide/api/v1/mining/hashrate/1m";
+
+const hashrateValue = document.getElementById("hashrate-value");
+const hashrateUnit = document.getElementById("hashrate-unit");
+const status = document.getElementById("status");
+
+function formatHashrate(hashrate) {
+    const units = [
+        { unit: "EH/s", value: 1e18 },
+        { unit: "PH/s", value: 1e15 },
+        { unit: "TH/s", value: 1e12 },
+        { unit: "GH/s", value: 1e9 },
+        { unit: "MH/s", value: 1e6 },
+        { unit: "kH/s", value: 1e3 },
+        { unit: "H/s", value: 1 }
+    ];
+
+    for (const item of units) {
+        if (hashrate >= item.value) {
+            return {
+                value: (hashrate / item.value).toFixed(2),
+                unit: item.unit
+            };
+        }
     }
 
-    .brand {
-        font-size: 21px;
-    }
-
-    .pair {
-        font-size: 13px;
-    }
-
-    .hashrate-value {
-        letter-spacing: -1.5px;
-    }
-
-    .instructions {
-        padding: 18px;
-    }
-
-    .install-button {
-        font-size: 13px;
-    }
-
-    .donation-address {
-        font-size: 10px;
-    }
-
-    .qr-code {
-        width: 160px;
-        height: 160px;
-    }
-
+    return {
+        value: "0.00",
+        unit: "H/s"
+    };
 }
+
+async function loadHashrate() {
+    try {
+        status.textContent = "Loading...";
+
+        const response = await fetch(API_URL);
+
+        if (!response.ok) {
+            throw new Error(`API request failed: ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        console.log("Mempool Guide response:", data);
+
+        if (
+            typeof data.currentHashrate !== "number" ||
+            !Number.isFinite(data.currentHashrate)
+        ) {
+            throw new Error("Invalid currentHashrate");
+        }
+
+        const formatted = formatHashrate(data.currentHashrate);
+
+        hashrateValue.textContent = formatted.value;
+        hashrateUnit.textContent = formatted.unit;
+
+        status.textContent = "Updated just now";
+
+    } catch (error) {
+        console.error("Unable to load network hashrate:", error);
+
+        hashrateValue.textContent = "--";
+        hashrateUnit.textContent = "PH/s";
+        status.textContent = "Unable to load data";
+    }
+}
+
+loadHashrate();
