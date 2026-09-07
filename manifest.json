@@ -3,19 +3,12 @@
     "short_name": "Blake Hash",
     "description": "Live Blake network hashrate checker.",
     "start_url": "/",
-    "scope": "/",
     "display": "standalone",
     "background_color": "#17120f",
     "theme_color": "#17120f",
     "icons": [
         {
-            "src": "/icons/icon-192.png",
-            "sizes": "192x192",
-            "type": "image/png",
-            "purpose": "any maskable"
-        },
-        {
-            "src": "/icons/icon-512.png",
+            "src": "/icon.png",
             "sizes": "512x512",
             "type": "image/png",
             "purpose": "any maskable"
