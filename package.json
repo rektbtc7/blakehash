@@ -1,0 +1,22 @@
+{
+  "name": "blakehash",
+  "version": "1.0.0",
+  "description": "Live Blake network hashrate checker - Progressive Web App",
+  "type": "module",
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "echo 'No build step required for vanilla JS project'",
+    "lint": "echo 'No linter configured'"
+  },
+  "keywords": [
+    "blake",
+    "hashrate",
+    "bitcoin",
+    "pwa"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@vercel/analytics": "^1.4.1"
+  }
+}
