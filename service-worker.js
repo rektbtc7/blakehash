@@ -1,20 +1,18 @@
 const CACHE_NAME = "blake-hash-v1";
 
-const APP_SHELL = [
+const APP_FILES = [
     "/",
     "/index.html",
     "/style.css",
     "/script.js",
     "/manifest.json",
-    "/icons/icon-192.png",
-    "/icons/icon-512.png",
-    "/icons/icon-180.png"
+    "/icon.png"
 ];
 
 self.addEventListener("install", event => {
     event.waitUntil(
         caches.open(CACHE_NAME).then(cache => {
-            return cache.addAll(APP_SHELL);
+            return cache.addAll(APP_FILES);
         })
     );
 
@@ -47,8 +45,8 @@ self.addEventListener("fetch", event => {
     }
 
     event.respondWith(
-        caches.match(event.request).then(cachedResponse => {
-            return cachedResponse || fetch(event.request);
+        caches.match(event.request).then(cached => {
+            return cached || fetch(event.request);
         })
     );
 });
