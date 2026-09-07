@@ -2,13 +2,19 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
 
-    <title>Bitcoin Blake | Network Hashrate</title>
+    <meta name="theme-color" content="#17120f">
+
     <meta
         name="description"
         content="Bitcoin Blake network hashrate checker."
     >
+
+    <title>Bitcoin Blake | Network Hashrate</title>
 
     <link rel="stylesheet" href="style.css">
 </head>
@@ -40,9 +46,113 @@
 
         </section>
 
+        <section class="install-section">
+
+            <button
+                class="install-button"
+                id="installButton"
+                type="button"
+            >
+                How to use as an app
+            </button>
+
+            <div class="instructions" id="instructions">
+
+                <h2>Bitcoin Blake</h2>
+
+                <p>
+                    Bitcoin Blake can be added to your phone or computer
+                    and used like an app for quick access to the live
+                    network hashrate.
+                </p>
+
+                <h3>iPhone / iPad</h3>
+
+                <ol>
+                    <li>Open this page in <strong>Safari</strong>.</li>
+                    <li>Tap the <strong>Share</strong> button.</li>
+                    <li>Tap <strong>Add to Home Screen</strong>.</li>
+                    <li>Make sure <strong>Open as Web App</strong> is enabled.</li>
+                    <li>Tap <strong>Add</strong>.</li>
+                </ol>
+
+                <h3>Android</h3>
+
+                <ol>
+                    <li>Open this page in <strong>Chrome</strong>.</li>
+                    <li>Tap the browser menu <strong>⋮</strong>.</li>
+                    <li>
+                        Select <strong>Install app</strong> or
+                        <strong>Add to Home screen</strong>.
+                    </li>
+                    <li>Confirm.</li>
+                </ol>
+
+                <h3>Windows / Mac / Linux</h3>
+
+                <ol>
+                    <li>Open this page in a supported browser.</li>
+                    <li>
+                        Use the browser's <strong>Install</strong> option
+                        or <strong>Add to desktop</strong> option.
+                    </li>
+                    <li>Confirm.</li>
+                </ol>
+
+                <p>
+                    Once added, Bitcoin Blake will appear on your device
+                    like an app, giving you quick access to the live
+                    network hashrate.
+                </p>
+
+            </div>
+
+        </section>
+
+        <section class="donation-section">
+
+            <div class="donation-text">
+                Support this app.
+            </div>
+
+            <div class="donation-address">
+                BTCB2 donation address
+            </div>
+
+            <div class="donation-address">
+                bc1qvp5tjmzvu5jdlqrfvee6q9azqnsu9dmtume70m
+            </div>
+
+            <img
+                class="qr-code"
+                src="/donation-qr.png"
+                alt="BTCB2 donation QR code"
+            >
+
+        </section>
+
     </main>
 
+    <script>
+        window.va = window.va || function () {
+            (window.vaq = window.vaq || []).push(arguments);
+        };
+    </script>
+
+    <script defer src="/_vercel/insights/script.js"></script>
+
     <script src="script.js"></script>
+
+    <script>
+        const installButton = document.getElementById("installButton");
+        const instructions = document.getElementById("instructions");
+
+        installButton.addEventListener("click", () => {
+            const isOpen = instructions.style.display === "block";
+
+            instructions.style.display = isOpen ? "none" : "block";
+        });
+    </script>
 
 </body>
 </html>
