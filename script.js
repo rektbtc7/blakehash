@@ -34,33 +34,39 @@ async function loadHashrate() {
     try {
         status.textContent = "Loading...";
 
-        const response = await fetch(API_URL);
+        const response = await fetch(API_URL, {
+            cache: "no-store"
+        });
 
         if (!response.ok) {
-            throw new Error("API request failed");
+            throw new Error(`API request failed: ${response.status}`);
         }
 
         const data = await response.json();
+
+        console.log("Mempool Guide response:", data);
 
         if (
             typeof data.currentHashrate !== "number" ||
             !Number.isFinite(data.currentHashrate)
         ) {
-            throw new Error("Invalid hashrate data");
+            throw new Error("Invalid currentHashrate");
         }
 
         const formatted = formatHashrate(data.currentHashrate);
 
         hashrateValue.textContent = formatted.value;
         hashrateUnit.textContent = formatted.unit;
+
         status.textContent = "Updated just now";
+
     } catch (error) {
         console.error("Unable to load network hashrate:", error);
 
-        hashrateValue.textContent = "--";
-        hashrateUnit.textContent = "PH/s";
         status.textContent = "Unable to load data";
     }
 }
 
 loadHashrate();
+
+setInterval(loadHashrate, 60000);
