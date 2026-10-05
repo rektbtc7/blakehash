@@ -1,4 +1,4 @@
-const CACHE_NAME = "blake-hash-v1";
+const CACHE_NAME = "blake-hash-v2";
 
 const APP_FILES = [
     "/",
@@ -6,7 +6,8 @@ const APP_FILES = [
     "/style.css",
     "/script.js",
     "/manifest.json",
-    "/icon.png"
+    "/icon.png",
+    "/donation-qr.png"
 ];
 
 self.addEventListener("install", event => {
@@ -41,6 +42,26 @@ self.addEventListener("fetch", event => {
     const url = new URL(event.request.url);
 
     if (url.origin !== self.location.origin) {
+        return;
+    }
+
+    if (url.pathname === "/" || url.pathname === "/index.html") {
+        event.respondWith(
+            fetch(event.request)
+                .then(response => {
+                    const responseClone = response.clone();
+
+                    caches.open(CACHE_NAME).then(cache => {
+                        cache.put(event.request, responseClone);
+                    });
+
+                    return response;
+                })
+                .catch(() => {
+                    return caches.match(event.request);
+                })
+        );
+
         return;
     }
 
