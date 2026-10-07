@@ -1,6 +1,6 @@
-const CACHE_NAME = "blake-hash-v2";
+const CACHE_NAME = "blake-hash-v3";
 
-const APP_FILES = [
+const STATIC_FILES = [
     "/",
     "/index.html",
     "/style.css",
@@ -13,7 +13,7 @@ const APP_FILES = [
 self.addEventListener("install", event => {
     event.waitUntil(
         caches.open(CACHE_NAME).then(cache => {
-            return cache.addAll(APP_FILES);
+            return cache.addAll(STATIC_FILES);
         })
     );
 
@@ -45,7 +45,14 @@ self.addEventListener("fetch", event => {
         return;
     }
 
-    if (url.pathname === "/" || url.pathname === "/index.html") {
+    const isDocument =
+        url.pathname === "/" ||
+        url.pathname === "/index.html";
+
+    const isJavaScript =
+        url.pathname === "/script.js";
+
+    if (isDocument || isJavaScript) {
         event.respondWith(
             fetch(event.request)
                 .then(response => {
