@@ -1,4 +1,4 @@
-const API_URL = "https://mempool.guide/api/v1/mining/hashrate/1m";
+const API_URL = "https://mempool.kilombino.com/api/v1/mining/hashrate/1m";
 
 const hashrateValue = document.getElementById("hashrate-value");
 const hashrateUnit = document.getElementById("hashrate-unit");
@@ -35,16 +35,19 @@ async function loadHashrate() {
         status.textContent = "Loading...";
 
         const response = await fetch(API_URL, {
+            method: "GET",
             cache: "no-store"
         });
 
         if (!response.ok) {
-            throw new Error(`API request failed: ${response.status}`);
+            throw new Error(
+                `API request failed with status ${response.status}`
+            );
         }
 
         const data = await response.json();
 
-        console.log("Mempool Guide response:", data);
+        console.log("Kilombino response:", data);
 
         if (
             typeof data.currentHashrate !== "number" ||
@@ -63,6 +66,8 @@ async function loadHashrate() {
     } catch (error) {
         console.error("Unable to load network hashrate:", error);
 
+        hashrateValue.textContent = "--";
+        hashrateUnit.textContent = "PH/s";
         status.textContent = "Unable to load data";
     }
 }
